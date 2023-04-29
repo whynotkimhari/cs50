@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link href="styles.css" rel="stylesheet">
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                let correct = document.querySelector('.correct');
+                correct.addEventListener('click', function(){
+                    correct.style.backgroundColor = 'green';
+                    document.querySelector('#feedback1').innerHTML = 'Correct!';
+                })
+                let incorrects = document.querySelectorAll('.incorrect');
+                for (let i = 0; i < incorrects.length; i++){
+                    incorrects[i].addEventListener('click', function(){
+                        incorrects[i].style.backgroundColor = 'red';
+                        document.querySelector('#feedback1').innerHTML = 'Incorrect!';
+                    });
+                }
+                document.querySelector('#check').addEventListener('click', function(){
+                    let input = document.querySelector('input');
+                    if (input.value === '19'){
+                        input.style.backgroundColor = 'green';
+                        document.querySelector('#feedback2').innerHTML = 'Correct!';
+                    }else{
+                        input.style.backgroundColor = 'red';
+                        document.querySelector('#feedback2').innerHTML = 'Incorrect';
+                    }
+                });
+            });
+        </script>
+        <title>CTz Da Poet</title>
+    </head>
+    <body>
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="https://www.facebook.com/antictzdapoett">Facebook</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="https://www.instagram.com/cete.market/">Instagram</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="https://www.facebook.com/haidz185/">About me</a>
+                </li>
+            </ul>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            This is website about 12CT. Made by Kim Hari. Visit our Facebook and Instagram by clicking above button
+        </div>
+        <div class="container">
+            <div class="section">
+                <h2>To get to know us</h2>
+                <hr>
+                <h3>What is kind of our class?</h3>
+                <button class ="incorrect">physics hornors class</button>
+                <button class ="incorrect">chemistry hornors class</button>
+                <button class ="incorrect">foreign language hornors class</button>
+                <button class ="correct">math hornors class</button>
+                <button class ="incorrect">informatics hornors class</button>
+                <p id="feedback1"></p>
+            </div>
+            <div class="section">
+                <h2>Guessing!</h2>
+                <hr>
+                <h3>How many students are there in our class?</h3>
+                <input type="text"></input>
+                <button id="check">Check Answer</button>
+                <p id="feedback2"></p>
+            </div>
+        <div class="part1">
+            <div class="card" style="width: 18rem;">
+                <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/286175884_722704932263393_8706914609434030306_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0debeb&_nc_ohc=Tqr4flf0p64AX8Pkil6&_nc_ht=scontent.fsgn2-5.fna&oh=00_AT84VJ28da9GdTjfCHMAHlgp-KWcmJfLUOJ0Ew39fLNy6Q&oe=62F0E770" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title">Our year book 1</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="https://www.facebook.com/quanhoang111/posts/pfbid0fboJucnikZ8soaQFsT1XmtS3QYvSQPvuZLcdvX8q9LHi4AuETS22KEBAkE9gynMEl" class="btn btn-primary">Explore now!</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/286487755_722092432324643_5694806553835251777_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=0debeb&_nc_ohc=RvhyeLHCVeEAX8IQd7A&_nc_ht=scontent.fsgn2-5.fna&oh=00_AT-9x4f4jrQzzJoMFeBkVouV46suKs67SzyXj7xIBWH9Lg&oe=62F13717" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title">Our year book 2</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="https://www.facebook.com/quanhoang111/posts/pfbid02Y9mBdQX2rG7fN8P3VQEnPy15HQB7WN67HdcuiHh7M842MTJJCzodHYqWSTgmNZccl" class="btn btn-primary">Explore now!</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/116345958_309084816958742_1390813527185198984_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=3oxuxjIb7iAAX-4q97u&_nc_ht=scontent.fsgn2-4.fna&oh=00_AT8kMnHZidggcoSqAITBv44AyNXFMmNzryz5r-h9dWXHdQ&oe=63126C84" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">First time</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="https://www.facebook.com/quanhoang111/posts/pfbid0oUQWyjhLRaS3yTW3fZ5wKzEP7voz3624D7d3iQRSBWZHBiBcdpwnK12QGeFrp9eZl" class="btn btn-primary">Explore now!</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/75398226_1440866972734732_95828206501756928_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=NuGZGSmGXbIAX_td9iD&_nc_ht=scontent.fsgn2-4.fna&oh=00_AT_VHahudsQF-kycTpBM6xpTldW1UM5lFu3_bikQRONg0Q&oe=630FB62A" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">CT on Youtube</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="https://www.youtube.com/watch?v=oZopBJYW2X4" class="btn btn-primary">Watch now!</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

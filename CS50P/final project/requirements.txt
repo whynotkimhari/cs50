@@ -1,0 +1,6 @@
+pip install pytube
+pip install pyqrcode
+python -m pip install git+https://gitlab.com/drj11/pypng@pypng-0.20220715.0
+pip install re
+pip install Pillow
+pip install pytest

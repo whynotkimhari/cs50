@@ -1,0 +1,11 @@
+sort1 uses: Bubble Sort
+
+How do you know?: because the time it spent on sorting the sorted text is the best
+
+sort2 uses: Merge Sort
+
+How do you know?: because the time it spent on sorting the random text is the best
+
+sort3 uses: Selection Sort
+
+How do you know?: because the it spent on sorting the reversed text is better than the sort1
