@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Search</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="row">
+        <div class="col-2">
+          <h1 class="adstt">Advance Search</h1>
+        </div>
+        <div class="col-2">
+          <nav>
+            <ul>
+              <li><a href="index.html">Google Search</a></li>
+              <li><a href="imgS.html">Image Search</a></li>
+              <li><a href="AdS.html">Advance Search</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <h2>Advance Search</h2>
+      <hr />
+    </div>
+
+    <div class="finder">
+      <h3>Find pages with...</h3>
+      <form action="https://www.google.com/search">
+        <div class="top">
+          <div class="txt">
+            <p>all these words:</p>
+            <p>this exact word or phrase:</p>
+            <p>any of these words:</p>
+            <p>none of these words:</p>
+          </div>
+
+          <div class="in">
+            <input type="text" name="as_q"/>
+            <input type="text" name="as_epq"/>
+            <input type="text" name="as_oq"/>
+            <input type="text" name="as_eq"/>
+            <input name="as_nlo" type="hidden" value="">
+            <input name="as_nhi" type="hidden" value="">
+            <input name="lr" value="" type="hidden">
+            <input name="cr" value="" type="hidden">
+            <input name="as_qdr" value="all" type="hidden">
+            <input value="" name="as_sitesearch" type="hidden">
+            <input value="any" name="as_occt" type="hidden">
+            <input value="" name="as_filetype" type="hidden">
+            <input name="tbs" type="hidden" value="">
+          </div>
+        </div>
+
+        <input type="submit" value="Image Search" class="btns" />
+      </form>
+    </div>
+  </body>
+</html>

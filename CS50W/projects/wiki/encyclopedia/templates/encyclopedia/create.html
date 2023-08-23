@@ -1,0 +1,12 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+    {{ form_head | safe }}
+    {% csrf_token %}
+    {{ html | safe }}
+    {{ form_tail | safe }}
+{% endblock %}
