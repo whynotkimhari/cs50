@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create Listings</h2>
+
+    <form action="{% url 'createlisting' %}" method="post">
+        {% csrf_token %}
+        <label for="title"><strong>Title</strong></label><br>
+        <input type="text" placeholder="Type a title" id="title" name="title"><br>
+
+        <label for="description"><strong>Description</strong></label><br>
+        <input type="text" placeholder="Type a description" id="description" name="description"><br>
+
+        <label for="price"><strong>Price</strong></label><br>
+        <input type="text" placeholder="At most 2 digit after a comma" id="price" name="price"><br>
+
+        <label for="url"><strong>Image URL</strong></label><br>
+        <input type="text" placeholder="Type a Image URL" id="url" name="url"><br>
+
+        <label for="category"><strong>Category</strong></label><br>
+        <input type="text" placeholder="Type a category" id="category" name="category"><br>
+
+        <br>
+        <input type="submit">
+    </form>
+{% endblock %}

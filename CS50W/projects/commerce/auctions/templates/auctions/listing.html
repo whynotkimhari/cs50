@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>{{ listing.name }}</h2>
+    {% if listing.is_in_watch_list %}
+        <div class="button">
+            Watchlist
+        </div>
+    {% endif %}
+    {% if listing.picture_url %}
+        <img src="{{ listing.picture_url }}" width="1000">
+    {% else %}
+        <img src="{% static 'auctions/img.png' %}" width="100">
+    {% endif %}
+    <p>{{ listing.description }}</p>
+    <h4>${{ listing.price }}</h4>
+    <sub>{{ listing.bidding_times }} bid(s) sofar.</sub>
+
+    <form action="" method="post">
+        <input type="text" placeholder="Bid">
+        <input type="submit" value="Bid">
+    </form>
+
+    <h4>Details</h4>
+    <ul>
+        <li> Listed by: {{ listing.user_upload }}</li>
+        {% if listing.category %}
+            <li> Category: {{ listing.category }}</li>
+        {% else %}
+            <li> Category: No Category Listed</li>
+        {% endif %}
+    </ul>
+    
+{% endblock %}
