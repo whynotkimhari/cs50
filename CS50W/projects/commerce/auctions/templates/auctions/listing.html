@@ -5,7 +5,7 @@
     <h2>{{ listing.name }}</h2>
     {% if user_id is not None %}
         {% if is_in_watchlist %}
-            <div class="button">
+            <div>
                 This item is in your watch list
             </div>
             <form action="{% url 'removefromwatchlist' %}" method="post">
