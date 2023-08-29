@@ -1,7 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-
 class User(AbstractUser):
     pass
 
@@ -36,3 +34,10 @@ class Bid(models.Model):
 
     def __str__(self):
         return f"{self.id}: {self.price} in {self.listing_id} by {self.user_id} on {self.created_on}"
+    
+class UserWatchList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, default="")
+
+    def __str__(self):
+        return f"{self.user} is watching {self.listing}"

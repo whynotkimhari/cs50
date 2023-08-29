@@ -3,11 +3,25 @@
 
 {% block body %}
     <h2>{{ listing.name }}</h2>
-    {% if listing.is_in_watch_list %}
-        <div class="button">
-            Watchlist
-        </div>
+    {% if user_id is not None %}
+        {% if is_in_watchlist %}
+            <div class="button">
+                This item is in your watch list
+            </div>
+            <form action="{% url 'removefromwatchlist' %}" method="post">
+                {% csrf_token %}
+                <input type="text" value="{{ listing.id }}" name="listing_id" id="listing_id" hidden>
+                <input type="submit" value="Remove from Watch List">
+            </form>
+        {% else %}
+            <form action="{% url 'addtowatchlist' %}" method="post">
+                {% csrf_token %}
+                <input type="text" value="{{ listing.id }}" name="listing_id" id="listing_id" hidden>
+                <input type="submit" value="Add to Watch List">
+            </form>
+        {% endif %}
     {% endif %}
+    
     {% if listing.picture_url %}
         <img src="{{ listing.picture_url }}" width="150">
     {% else %}
@@ -76,9 +90,25 @@
     {% if user_id|stringformat:"s" == listing.user_upload.id|stringformat:"s" %}
         <form action="{% url 'close' listing.id %}" method="post">
             {% csrf_token %}
-            <input type="text" value="close" hidden>
             <input type="submit" value="Close Bidding">
         </form>
     {% endif %}
     
+    <h4>Comments</h4>
+    {% if user_id is not None %}
+        <form action="{% url 'comment' %}" method="post">
+            {% csrf_token %}
+            <input type="text" value="{{ listing.id }}" name="listing_id" hidden>
+            <textarea id="text" cols="100" rows="5" name="text"></textarea>
+            <input type="submit" value="Post now!">
+        </form>
+    {% endif %}
+    {% for comment in comments %}
+        <div class="comment-sec">
+            <h5>User: {{ comment.user }}</h5>
+            <p>{{ comment.text }} <br><i>commented on {{ comment.created_on }}</i></p>
+        </div>
+    {% empty %}
+        There is no comment yet
+    {% endfor %}
 {% endblock %}

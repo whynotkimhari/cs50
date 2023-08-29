@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h2>My Watch List</h2>
+
+    <div class="listings">
+        {% for listing in watchlist %}
+            <a href="{% url 'listing' listing.id %}" style="text-decoration: none; color: black;">
+                <div class="container" style="display: flex; margin-bottom: 50px; margin-top: 50px;">
+                    <div class="img-sec" style="margin-right: 100px;">
+                        {% if listing.picture_url %}
+                            <img src="{{ listing.picture_url }}" alt="" width="200">
+                        {% else %}
+                            <img src="{% static 'auctions/img.png' %}" alt="" width="200">
+                        {% endif %}
+                        
+                    </div>
+                    <div class="content-sec">
+                        <h3>{{ listing.name }}</h3>
+                        <h5>Price: ${{ listing.price }}</h5>
+                        {% if listing.category %}
+                            <h5>Category: {{ listing.category }}</h5>
+                        {% endif %}
+                        {% if listing.description %}
+                            <p>Description: {{ listing.description }}</p>
+                        {% endif %}
+                        <i>Created {{ listing.created_on }} by {{ listing.user_upload }}</i>
+                    </div>
+                </div>
+            </a>
+            <hr>
+        {% empty %}
+            Empty watch list.
+        {% endfor %}
+    </div>
+{% endblock %}
