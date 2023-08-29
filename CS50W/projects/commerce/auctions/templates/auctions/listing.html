@@ -9,19 +9,56 @@
         </div>
     {% endif %}
     {% if listing.picture_url %}
-        <img src="{{ listing.picture_url }}" width="1000">
+        <img src="{{ listing.picture_url }}" width="150">
     {% else %}
-        <img src="{% static 'auctions/img.png' %}" width="100">
+        <img src="{% static 'auctions/img.png' %}" width="150">
     {% endif %}
     <p>{{ listing.description }}</p>
     <h4>${{ listing.price }}</h4>
     <sub>{{ listing.bidding_times }} bid(s) sofar.</sub>
 
-    <form action="" method="post">
-        <input type="text" placeholder="Bid">
-        <input type="submit" value="Bid">
-    </form>
+    {% if msg %}
+        <p><b>{{ msg }}</b></p>
+    {% endif %}
 
+    {% if listing.is_open %}
+        {% if user_id is not None %}
+            {% if user_id|stringformat:"s" != listing.user_upload.id|stringformat:"s" %}
+                {% if bid is not None %}
+                    {% if user_id|stringformat:"s" != bid.user_id|stringformat:"s" %}
+                        <form action="{% url 'bid' listing.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="number" step="0.01" placeholder="Bid" id="bid_value" name="bid_value" required>
+                            <input type="submit" value="Bid">
+                        </form>
+                    {% else %}
+                        <p><b>You are the highest bidding right now!</b></p>
+                    {% endif %}
+                {% else %}
+                    <form action="{% url 'bid' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="number" step="0.01" placeholder="Bid" id="bid_value" name="bid_value" required>
+                        <input type="submit" value="Bid">
+                    </form>
+                {% endif %}
+            {% else %}
+                <p><b>You are the owner of this listing!</b></p>
+            {% endif %}
+        {% else %}
+            <p><b>You need to login to starting bid</b></p>
+        {% endif %}
+    {% else %}
+        {% if user_id %}
+            {% if user_id|stringformat:"s" == bid.user_id|stringformat:"s" %}
+                <p><b>Congratulation! You won this item!!!</b></p>
+            {% elif user_id|stringformat:"s" == listing.user_upload.id|stringformat:"s" %}
+                <p><b>You have closed bidding for this item</b></p>
+            {% else %}
+                <p><b>Sorry! This item was close for bidding</b></p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    
     <h4>Details</h4>
     <ul>
         <li> Listed by: {{ listing.user_upload }}</li>
@@ -30,6 +67,18 @@
         {% else %}
             <li> Category: No Category Listed</li>
         {% endif %}
+
+        {% if bid is not None %}
+            <li> Last bidding by: {{ last_bidding }}</li>
+        {% endif %}
     </ul>
+
+    {% if user_id|stringformat:"s" == listing.user_upload.id|stringformat:"s" %}
+        <form action="{% url 'close' listing.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" value="close" hidden>
+            <input type="submit" value="Close Bidding">
+        </form>
+    {% endif %}
     
 {% endblock %}

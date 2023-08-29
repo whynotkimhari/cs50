@@ -5,13 +5,13 @@
     <h2>Active Listings</h2>
     <div class="listings">
         {% for listing in listings %}
-            <a href="{% url 'listing' listing.id %}">
-                <div class="container" style="display: flex; margin-bottom: 50px;">
+            <a href="{% url 'listing' listing.id %}" style="text-decoration: none; color: black;">
+                <div class="container" style="display: flex; margin-bottom: 50px; margin-top: 50px;">
                     <div class="img-sec" style="margin-right: 100px;">
                         {% if listing.picture_url %}
-                            <img src="{{ listing.picture_url }}" alt="" width="150" height="150">
+                            <img src="{{ listing.picture_url }}" alt="" width="200">
                         {% else %}
-                            <img src="{% static 'auctions/img.png' %}" alt="" width="150" height="150">
+                            <img src="{% static 'auctions/img.png' %}" alt="" width="200">
                         {% endif %}
                         
                     </div>
@@ -28,6 +28,7 @@
                     </div>
                 </div>
             </a>
+            <hr>
         {% empty %}
             Empty listings
         {% endfor %}
