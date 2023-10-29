@@ -1,3 +1,30 @@
 textarea {
     min-height: 400px;
 }
+
+.email-section {
+    font-size: 16px;
+    display: block;
+    padding: 10px 20px 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    margin-bottom: 2px;
+    border-radius: 2px;
+}
+
+.email-section:hover {
+    box-shadow: 1px 2px 2px black;
+}
+
+.sender, .recipient {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.timestamp {
+    text-align: right;
+}
