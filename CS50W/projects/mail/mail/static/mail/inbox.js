@@ -14,10 +14,11 @@ function send_email(e) {
   const recipients = document.querySelector("#compose-recipients");
   const subject = document.querySelector("#compose-subject");
   const body = document.querySelector("#compose-body");
+
   fetch('/emails', {
     method: 'POST',
     body: JSON.stringify({
-      recipients: Array.from(new Set(recipients.value.split(','))),
+      recipients: Array.from(new Set(recipients.value.split(','))).toString(),
       subject: subject.value,
       body: body.value
     })
@@ -57,59 +58,110 @@ function mark_as_unread(id) {
   })
 }
 
-function reply(id) {}
+function reply(id) {
+  console.log("mail " + id + " reply")
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'block';
+
+  fetch(`/emails/${id}`)
+  .then(rs => rs.json())
+  .then(data => {
+    console.log(data)
+    document.querySelector('#compose-recipients').value = `${data.sender}`;
+    document.querySelector('#compose-subject').value = data.subject.startsWith('Re: ') ? data.subject : `Re: ${data.subject}`;
+    document.querySelector('#compose-body').value = `\n\n--------------------------------\nOn ${data.timestamp} ${data.sender} wrote:\n\n${data.body}`;
+    document.querySelector('#compose-body').setAttribute('autofocus', 'autofocus');
+    document.querySelector('#compose-body').setSelectionRange(0, 0);
+    document.querySelector('#compose-body').focus();
+  })
+}
 
 function set_archive(id) {
   fetch(`/emails/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
-      archive: true
+      archived: true
     })
   })
+  .then(() => load_mailbox('inbox'))
 }
 
-function unset_archive(id) {
+function set_unarchive(id) {
+  console.log(id)
   fetch(`/emails/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
-      archive: false
+      archived: false
     })
   })
+  .then(() => load_mailbox('inbox'))
 }
 
-function open_mail(id) {
+function open_mail(id, mailbox_type) {
   mark_as_read(id);
   fetch(`/emails/${id}`)
   .then(rs => rs.json())
   .then(data => {
+    // console.log(data)
     document.querySelector('#emails-view').style.display = 'block';
     document.querySelector('#compose-view').style.display = 'none';
 
-    document.querySelector('#emails-view').innerHTML = `
-      <div>
-        <strong>From</strong>: ${data.sender}<br/>
-        <strong>To</strong>: ${data.recipients.toString()}<br/>
-        <strong>Subject</strong>: ${data.subject}<br/>
-        <strong>Timestamp</strong>: ${data.timestamp}<br/>
-        <button onclick="reply(${id})">Reply</button>
-        <button onclick="set_archive(${id})">Archive</button>
-        <hr>
-        <p>${data.body}</p>
-      </div>
-    `
-    
-    console.log(data);
+    if(mailbox_type === 'inbox') {
+      console.log(data.body)
+      document.querySelector('#emails-view').innerHTML = `
+        <div>
+          <strong>From</strong>: ${data.sender}<br/>
+          <strong>To</strong>: ${data.recipients.toString()}<br/>
+          <strong>Subject</strong>: ${data.subject}<br/>
+          <strong>Timestamp</strong>: ${data.timestamp}<br/>
+          <button onclick="reply(${id})">Reply</button>
+          <button onclick="set_archive(${id})">Archive</button>
+          <hr>
+          <pre style="font-size: 16px !important;">${data.body}</pre>
+        </div>
+      `
+    }
+    else if (mailbox_type === 'sent') {
+      document.querySelector('#emails-view').innerHTML = `
+        <div>
+          <strong>From</strong>: ${data.sender}<br/>
+          <strong>To</strong>: ${data.recipients.toString()}<br/>
+          <strong>Subject</strong>: ${data.subject}<br/>
+          <strong>Timestamp</strong>: ${data.timestamp}<br/>
+          <button onclick="reply(${id})">Reply</button>
+          <hr>
+          <pre>${data.body}</pre>
+        </div>
+      `
+    }
+    else if (mailbox_type === 'archive') {
+      document.querySelector('#emails-view').innerHTML = `
+        <div>
+          <strong>From</strong>: ${data.sender}<br/>
+          <strong>To</strong>: ${data.recipients.toString()}<br/>
+          <strong>Subject</strong>: ${data.subject}<br/>
+          <strong>Timestamp</strong>: ${data.timestamp}<br/>
+          <button onclick="reply(${id})">Reply</button>
+          <button onclick="set_unarchive(${id})">Un-Archived</button>
+          <hr>
+          <pre>${data.body}</pre>
+        </div>
+      `
+    }
+    // console.log(data);
   })
 }
 
 function load_mailbox(mailbox) {
+  // console.log(mailbox);
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
   .then(emails => {
+    // console.log(emails, mailbox);
     if(mailbox === 'inbox') {
       emails.forEach(email => {
         let html = `
-          <div class="email-section" onclick="open_mail(${email.id})" style="background: ${email.read ? 'gainsboro' : 'white'}">
+          <div class="email-section" onclick="open_mail(${email.id},'inbox')" style="background: ${email.read ? 'gainsboro' : 'white'}">
             <div class="row">
                 <div class="sender">To: <strong>${email.sender}</strong></div>
                 <div class="header">${email.subject}</div>
@@ -125,7 +177,7 @@ function load_mailbox(mailbox) {
       emails.forEach(email => {
         email.recipients.forEach(recipient => {
           let html = `
-            <div class="email-section" onclick="open_mail(${email.id})" style="background: ${email.read ? 'gainsboro' : 'white'}">
+            <div class="email-section" onclick="open_mail(${email.id},'sent')" style="background: ${email.read ? 'gainsboro' : 'white'}">
               <div class="row">
                 <div class="recipient">To: <strong>${recipient}</strong></div>
                 <div class="header">${email.subject}</div>
@@ -139,10 +191,25 @@ function load_mailbox(mailbox) {
     }
 
     else if(mailbox === 'archive') {
+<<<<<<< Updated upstream
 
+=======
+      emails.forEach(email => {
+        let html = `
+          <div class="email-section" onclick="open_mail(${email.id},'archive')" style="background: ${email.read ? 'gainsboro' : 'white'}">
+            <div class="row">
+                <div class="sender">To: <strong>${email.sender}</strong></div>
+                <div class="header">${email.subject}</div>
+              </div>   
+              <div class="timestamp"><sub>${email.timestamp}</sub></div>
+          </div>
+        `;
+        document.querySelector('#emails-view').innerHTML += html;
+      })
+>>>>>>> Stashed changes
     }
     
-    console.log(emails)
+    // console.log(emails)
   });
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
