@@ -13,12 +13,14 @@ data = {
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
-        "entries": entries
+        "entries": sorted(list(set(entries)))
     })
 
 def getContent(request, name):
+    # print(request)
     if name in data:
         html = data[name]
+        html += f'<br><a href="../edit/{name}">Edit content</a>'
         return render(request, "encyclopedia/encyclopedia.html", {
             "name": name,
             "html": html
@@ -31,8 +33,15 @@ def getContent(request, name):
         })
     
 def search(request):
+    # print(request)
     query = request.GET.get('q')
+    header = 'search'
     html = ''
+
+    for entry in entries:
+        if entry == query:
+            return getContent(request, entry)
+
     # print(query)
     similar = [entry if query in entry else None for entry in entries]
 
@@ -40,8 +49,12 @@ def search(request):
         if value in data:
             html = html + f'<a href="wiki/{value}"><h1>{value}</h1></a>'
 
+    if html == '':
+        html = f"Sorry, \"{query}\" does not appear in any documents"
+        header = 'error'
+
     return render(request, "encyclopedia/encyclopedia.html", {
-        "name": 'error',
+        "name": header,
         "html": html
     })
     
@@ -99,5 +112,5 @@ def edit(request, name):
 def randomPage(request):
     id = random.randint(0, len(entries) - 1)
     name = entries[id]
-    print(name)
+    # print(name)
     return HttpResponseRedirect(f'/wiki/{name}')

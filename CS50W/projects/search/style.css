@@ -98,6 +98,7 @@ hr {
   color: #bdc1c6;
   border-radius: 25px;
   border: 1px solid #bdc1c6;
+  cursor: pointer;
 }
 
 .btns {
@@ -108,6 +109,7 @@ hr {
   border-radius: 5px;
   border: 1px solid #bdc1c6;
   margin-left: 620px;
+  cursor: pointer;
 }
 
 .finder {
@@ -136,4 +138,8 @@ hr {
   display: flex;
   margin: 0 auto;
   justify-content: center;
+}
+
+.sengine input {
+  cursor: pointer;
 }
