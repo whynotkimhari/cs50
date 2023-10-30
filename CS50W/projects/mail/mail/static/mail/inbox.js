@@ -191,9 +191,6 @@ function load_mailbox(mailbox) {
     }
 
     else if(mailbox === 'archive') {
-<<<<<<< Updated upstream
-
-=======
       emails.forEach(email => {
         let html = `
           <div class="email-section" onclick="open_mail(${email.id},'archive')" style="background: ${email.read ? 'gainsboro' : 'white'}">
@@ -206,7 +203,6 @@ function load_mailbox(mailbox) {
         `;
         document.querySelector('#emails-view').innerHTML += html;
       })
->>>>>>> Stashed changes
     }
     
     // console.log(emails)
