@@ -163,7 +163,7 @@ function load_mailbox(mailbox) {
         let html = `
           <div class="email-section" onclick="open_mail(${email.id},'inbox')" style="background: ${email.read ? 'gainsboro' : 'white'}">
             <div class="row">
-                <div class="sender">To: <strong>${email.sender}</strong></div>
+                <div class="sender"><strong>${email.sender}</strong></div>
                 <div class="header">${email.subject}</div>
               </div>   
               <div class="timestamp"><sub>${email.timestamp}</sub></div>
