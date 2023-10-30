@@ -139,7 +139,7 @@ function load_mailbox(mailbox) {
     }
 
     else if(mailbox === 'archive') {
-
+      console.log("tmp")
     }
     
     console.log(emails)
